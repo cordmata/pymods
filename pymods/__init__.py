@@ -128,7 +128,8 @@ class Mods(ModsRoot):
         else:
             name.set('type', 'personal')
             name.append(self._me.namePart(last, {'type':'family'}))
-            name.append(self._me.namePart(rest, {'type':'given'}))
+            if rest:
+                name.append(self._me.namePart(rest, {'type':'given'}))
             
         if roles:
             role_elem = self._me.role()
