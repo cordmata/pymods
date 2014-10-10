@@ -72,8 +72,7 @@ class TestMods(unittest.TestCase):
         bad = u"I'm a \x00naughty string, \ud803clean me."
         good = u"I'm a naughty string, clean me."
         self.mods.add_subject(bad)
-        cleanstring = etree.tostring(self.mods.etree)
-        print cleanstring
+        cleanstring = self.mods.as_xml()
         self.assertTrue(good in cleanstring)
 
     def _validate(self, et):

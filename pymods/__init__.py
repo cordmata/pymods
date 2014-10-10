@@ -1,3 +1,4 @@
+from lxml import etree
 from lxml.builder import ElementMaker
 from _lxml import makeelement
 
@@ -25,13 +26,22 @@ class ModsRoot(object):
             self._root = self._me.modsCollection()
         else:
             self._root = self._me.mods()
-        self._root.set('{{{}}}schemaLocation'.format(XSI_NAMESPACE),
-                       '{} {}'.format(MODS_NAMESPACE,
-                                      MODS_SCHEMA_LOC))
+        self._root.set(
+            '{{{}}}schemaLocation'.format(XSI_NAMESPACE),
+            '{} {}'.format(MODS_NAMESPACE, MODS_SCHEMA_LOC)
+        )
 
     @property
     def etree(self):
         return self._root
+
+    def as_xml(self, xml_declaration=False, pretty_print=True):
+        return etree.tostring(
+            self._root,
+            xml_declaration=xml_declaration,
+            pretty_print=pretty_print,
+            encoding='utf-8'
+        )
 
 
 class ModsCollection(ModsRoot):
